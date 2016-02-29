@@ -131,6 +131,10 @@
         frame.size.height =  85 + messageHeight + count * kButtonHeight;
         frame.origin.y = (kDeviceHeight - 85 - messageHeight - count * kButtonHeight) / 2;
         alertView.frame = frame;
+        
+        if (completionBlock) {
+             self.completionBlock = completionBlock;
+        }
     }
     
     return self;
@@ -156,7 +160,7 @@
 {
     [self hide];
     if (self.completionBlock) {
-        self.completionBlock(self, (int)sender.tag);
+        self.completionBlock(self, (int)sender.tag - kButtonTag);
     }
 }
 
@@ -227,7 +231,6 @@
         
         for (UIButton *otherButton in _otherButtonArray) {
             [otherButton setTitleColor:_otherButtonColor forState:UIControlStateNormal];
-            NSLog(@"Set OhterButton Color!");
         }
     }
 }
